@@ -11,6 +11,8 @@
 #ifndef __PLUGINEDITOR_H_8FBA87C0__
 #define __PLUGINEDITOR_H_8FBA87C0__
 
+#include <memory>
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 //#include "LkjbLookAndFeels.h"
@@ -104,10 +106,10 @@ private:
 	Image background;
 	GuiLookAndFeel guiLookAndFeel;
 
-	ScopedPointer<TooltipWindow> tooltips;
+	std::unique_ptr<TooltipWindow> tooltips;
 
 	ModalCallback* modalCallback;
-	ScopedPointer<PopupMenu> showTooltips;
+	std::unique_ptr<PopupMenu> showTooltips;
 
 	JUCE_DECLARE_NON_COPYABLE(LuftikusAudioProcessorEditor)
 };

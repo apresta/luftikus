@@ -1,1 +1,0 @@
-Put VST3 SDK files here.

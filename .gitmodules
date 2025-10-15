@@ -1,4 +1,0 @@
-[submodule "juce"]
-	path = juce
-	url = https://github.com/lkjbdsp/lkjb-juce.git
-	branch = lkjb_master

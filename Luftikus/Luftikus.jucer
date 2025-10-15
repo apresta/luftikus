@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Cty3a0" name="Luftikus" projectType="audioplug" version="1.3.0"
-              bundleIdentifier="com.lkjb.Luftikus" buildVST="1" buildAU="1"
+              bundleIdentifier="com.lkjb.Luftikus" buildVST="0" buildAU="1"
               pluginName="Luftikus" pluginDesc="Luftikus" pluginManufacturer="lkjb"
               pluginManufacturerCode="Lkjb" pluginCode="lklK" pluginChannelConfigs="{2, 2}, {1, 1}, {6, 6}"
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginSilenceInIsSilenceOut="0" pluginTailLength="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="LuftikusAU" pluginAUViewClass="LuftikusAU_V1"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.Luftikus"
-              pluginAAXCategory="1" jucerVersion="5.4.3" companyName="lkjb"
-              includeBinaryInAppConfig="1" pluginFormats="buildAU,buildVST,buildVST3"
-              pluginCharacteristicsValue="pluginEditorRequiresKeys" buildVST3="1"
-              buildAUv3="0" buildRTAS="0" buildAAX="0" buildStandalone="0"
-              enableIAA="0">
+              pluginAAXCategory="1" companyName="lkjb" includeBinaryInAppConfig="1"
+              pluginFormats="buildAU,buildVST3" pluginCharacteristicsValue="pluginEditorRequiresKeys"
+              buildVST3="1" buildAUv3="0" buildRTAS="0" buildAAX="0" buildStandalone="0"
+              enableIAA="0" jucerFormatVersion="1">
   <MAINGROUP id="oOecqI" name="Luftikus">
     <GROUP id="{AF175738-F04D-3594-6CFB-67458558CEFB}" name="pnggui">
       <FILE id="kuziPU" name="chicken_300.png" compile="0" resource="1" file="Source/gui2/chicken_300.png"/>
@@ -48,22 +47,25 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_USE_DIRECTWRITE="0"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="../vstsdk2.4">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="lkjb_Luftikus"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="lkjb_Luftikus"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="lkjb_Luftikus"
+                       defines="JUCE_VST3_CAN_REPLACE_VST2=0"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="lkjb_Luftikus"
+                       defines="JUCE_VST3_CAN_REPLACE_VST2=0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_data_structures" path="../juce/modules"/>

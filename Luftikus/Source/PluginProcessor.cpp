@@ -8,6 +8,8 @@
 ==============================================================================
 */
 
+#include <memory>
+
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -102,6 +104,19 @@ void LuftikusAudioProcessor::setParameter (int index, float newValue)
 	{
 		masterVolume.setVolumeNormalized(newValue);
 	}
+}
+
+void LuftikusAudioProcessor::setParameterNotifyingHost(int parameterIndex, float newValue)
+{
+    setParameter(parameterIndex, newValue);
+    const float canonicalValue = getParameter(parameterIndex);
+
+    if (auto* parameter = getParameters()[parameterIndex])
+    {
+        parameter->beginChangeGesture();
+        parameter->setValueNotifyingHost(canonicalValue);
+        parameter->endChangeGesture();
+    }
 }
 
 const String LuftikusAudioProcessor::getParameterName (int index)
@@ -339,7 +354,7 @@ void LuftikusAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void LuftikusAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-	ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
+	std::unique_ptr<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
 
 	if (xml != nullptr)
 	{
@@ -379,10 +394,10 @@ void LuftikusAudioProcessor::setGuiType(LuftikusAudioProcessor::GUIType newType)
 		}
 		else
 		{
-			ScopedPointer<XmlElement> xml(XmlDocument::parse(guiTypeFile));
+			std::unique_ptr<XmlElement> xml(XmlDocument::parse(guiTypeFile));
 
 			if (xml == nullptr)
-				xml = new XmlElement("LUFTIKUS");
+				xml = std::make_unique<XmlElement>("LUFTIKUS");
 
 			const String type(guiType == kLuftikus ? "Luftikus" : guiType == kLkjb ? "lkjb" : "gui");
 			xml->setAttribute("guitype", type);
@@ -402,7 +417,7 @@ LuftikusAudioProcessor::GUIType LuftikusAudioProcessor::getGuiType()
 
 LuftikusAudioProcessor::GUIType LuftikusAudioProcessor::getTypeFromFile()
 {
-	ScopedPointer<XmlElement> xml(XmlDocument::parse(guiTypeFile));
+	std::unique_ptr<XmlElement> xml(XmlDocument::parse(guiTypeFile));
 
 	if (xml != nullptr && xml->hasTagName("LUFTIKUS") && xml->hasAttribute("guitype"))
 	{

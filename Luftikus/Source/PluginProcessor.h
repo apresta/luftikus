@@ -136,6 +136,9 @@ public:
 	float getParameter (int index);
 	void setParameter (int index, float newValue);
 
+    // Added for compatibility with new versions of JUCE.
+    void setParameterNotifyingHost(int parameterIndex, float newValue);
+    
 	const String getParameterName (int index);
 	const String getParameterText (int index);
 

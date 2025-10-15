@@ -8,6 +8,8 @@
   ==============================================================================
 */
 
+#include <memory>
+
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -122,7 +124,7 @@ void LuftikusAudioProcessorEditor::mouseDown(const MouseEvent& e)
 
 	if (rect.contains(e.getPosition()) && showTooltips == nullptr)
 	{
-		showTooltips = new PopupMenu();
+		showTooltips = std::make_unique<PopupMenu>();
 		showTooltips->addItem(1, "Show Tooltips", true, tooltips != nullptr);
 		showTooltips->showMenuAsync(PopupMenu::Options(), modalCallback = new ModalCallback(this));
 	}
@@ -143,7 +145,7 @@ void LuftikusAudioProcessorEditor::modalReturn(int returnValue)
 	if (returnValue == 1)
 	{
 		if (tooltips == nullptr)
-			tooltips = new TooltipWindow();
+			tooltips = std::make_unique<TooltipWindow>();
 		else
 			tooltips = nullptr;
 
@@ -391,6 +393,6 @@ void LuftikusAudioProcessorEditor::updateTooltipState()
 	const bool curState = tooltips != nullptr;
 
 	if (Proc->showTooltips != curState)
-		tooltips = Proc->showTooltips ? new TooltipWindow() : nullptr;
+		tooltips = Proc->showTooltips ? std::make_unique<TooltipWindow>() : nullptr;
 		
 }
