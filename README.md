@@ -1,26 +1,20 @@
-# lkjb Open Source Plugins
+# lkjb Luftikus Audio Plugin
 
-This repository contains all lkjb open source plugins which are:
-- PitchedDelay (previously a separate repository)
-- Luftikus
-- Refine
-- SuperSpread
+This repository contains an updated version of the Luftikus plugin by lkjb, updated to build with newer versions of JUCE and produce an Apple Silicon-compatible plugin.
 
-A JUCE fork is included as submodule which contains the JUCE 5.4.3 sources with the following modifications:
-- GPL mode in Projucer enabled
-- Disabled analytics (usage reporting) in sources as well as in Projucer
-- Disabled update checking in Projucer as it should be possible to build the plugins without any further modifications from the repository
-- Changed Projucer settings directory to "Projucer (lkjb mod)". This allows to use the lkjb fork Projucer in parallel to the normal Projucer.
+The build process was tested on macOS 15.7.1 with Xcode 26.0.1 and JUCE 8.0.10.
 
-# Building
+Prebuilt AU and VST3 plugins are available in the [Releases](https://github.com/apresta/luftikus/releases/latest) section. Please note that you will likely need to code-sign the plugins before you can run them:
 
-The following steps should suffice to build the plugins:
-1. Build Projucer in `juce/extras/Projucer/Builds`. Choose the fitting IDE's subfolder.
-2. Run Projucer and save the plugin's `.jucer` files in their respective plugins directories. If you want to also build VST2 plugins copy the VST2.4 SDK inside the `vstsdk2.4` directory. Only the `extras\Projucer\Builds` and `public.sdk` folders are needed. Currently (07/2019) the SDK can be download from [archive.org](https://archive.org/details/VST2SDK).
-3. After saving the `.jucer` files open the created IDE projects and compile.
+```sh
+sudo codesign -s - /Library/Audio/Plug-Ins/VST3/lkjb_Luftikus.vst3/Contents/MacOS/lkjb_Luftikus --timestamp --deep --force
+sudo xattr -rd com.apple.quarantine /Library/Audio/Plug-Ins/VST3/lkjb_Luftikus.vst3
 
-The build process was tested using VisualStudio 2017 on Windows 10 and XCode 8.2.1 on macOS 10.11 (El Capitan).
+sudo codesign -s - /Library/Audio/Plug-Ins/Components/lkjb_Luftikus.component/Contents/MacOS/lkjb_Luftikus --timestamp --deep --force
+sudo xattr -rd com.apple.quarantine /Library/Audio/Plug-Ins/Components/lkjb_Luftikus.component
+```
+
 
 # License
 JUCE is licensed under the GPL v3 or a commercial license. See juce.com for more details.
-The lkjb part of the code is now licensed under the MIT license. Feel free to use the code in other products or create (hopefully freeware) AAX plugins.
+The lkjb part of the code is now licensed under the MIT license. Feel free to use the code in other products or create (hopefully freeware) plugins.
